@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Star-BaseData-Service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Star-Basedata-Model" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Star-Eureka-Server" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Star-Security" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Star-Timetable-Model" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Star-Timetable-Service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Star-Timetable-UI" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>

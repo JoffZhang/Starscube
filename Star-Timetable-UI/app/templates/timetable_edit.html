@@ -1,0 +1,128 @@
+<link rel="stylesheet" href="dist/libs/timepicker/daterangepicker.css">
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        编辑课表
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="javascript:;"><i class="fa fa-dashboard"></i>课表管理</a></li>
+        <li>课表列表</li>
+        <li class="active">编辑课表</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content" ng-controller="timetableEditCtrl">
+<form name="timetableForm">
+    <div class="box box-default  color-palette-box">
+        <div class="box-header with-border">
+            <h3 class="box-title"><i class="fa fa-tag"></i> 基础信息</h3>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-sm-4 col-md-2">
+                    <div class="form-group">
+                        <label>学段</label>
+                        <select required class="form-control" ng-model="currentSelects.stageId"  ng-change="searchGrades(currentSelects.stageId);searchSubjects(currentSelects.stageId)" ng-options="s.id as s.title for s in stages">
+                        </select>
+                    </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 col-md-2">
+                    <div class="form-group">
+                        <label>年级</label>
+                        <select  class="form-control" ng-model="currentSelects.gradeId" ng-options="g.id as g.title for g in grades">
+                        </select>
+                    </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 col-md-3">
+                    <div class="form-group">
+                        <label>班级</label>
+                        <select  class="form-control" ng-model="currentSelects.classId" ng-options="c.id as c.title for c in classes">
+                        </select>
+                    </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 col-md-5">
+                    <div class="form-group">
+                        <label>学期</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input required type="text" class="form-control pull-right" ng-model="currentSelects.timePicker" daterangepicker>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.box-body -->
+    </div>
+
+    <div class="box box-default color-palette-box">
+        <div class="box-header with-border">
+            <h3 class="box-title"><i class="fa fa-tag"></i> 详细信息</h3>
+        </div>
+        <div class="box-body">
+            <table class="table table-bordered">
+                <tr>
+                    <th>#</th>
+                    <th>节数</th>
+                    <th>星期一</th>
+                    <th>星期二</th>
+                    <th>星期三</th>
+                    <th>星期四</th>
+                    <th>星期五</th>
+                </tr>
+                <tr ng-repeat="item in timeTemp">
+                    <td rowspan="{{noonNums.forenoonNum}}" ng-if="noonNums.forenoonNum !=0  && $index == 0">
+                        上午
+                    </td>
+                    <td rowspan="{{noonNums.afternoonNum}}" ng-if="$index == noonNums.forenoonNum">下午</td>
+                    <td>
+                        第{{$index+1}}节<br>
+                        {{item.startTime}}~{{item.endTime}}
+                    </td>
+                    <td>
+                        <select class="form-control" ng-model="timetable.subjects[$index].mon" ng-options="s.id as s.title for s in subjects">
+                        </select>
+                        <input type="text" ng-model="timetable.users[$index].mon" value="">
+                    </td>
+                    <td>
+                        <select class="form-control" ng-model="timetable.subjects[$index].tue" ng-options="s.id as s.title for s in subjects">
+                        </select>
+                        <input type="text" ng-model="timetable.users[$index].tue" value="">
+                    </td>
+                    <td>
+                        <select class="form-control" ng-model="timetable.subjects[$index].wed" ng-options="s.id as s.title for s in subjects">
+                        </select>
+                        <input type="text" ng-model="timetable.users[$index].wed" value="">
+                    </td>
+                    <td>
+                        <select class="form-control" ng-model="timetable.subjects[$index].thur" ng-options="s.id as s.title for s in subjects">
+                        </select>
+                        <input type="text" ng-model="timetable.users[$index].thur"  value="">
+                    </td>
+                    <td>
+                        <select class="form-control" ng-model="timetable.subjects[$index].fri" ng-options="s.id as s.title for s in subjects">
+                        </select>
+                        <input type="text" ng-model="timetable.users[$index].fri" value="">
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+            <button type="submit" ng-show="!callout" class="btn btn-primary" ng-click="submitForm(timetableForm.$valid)" ng-disabled="timetableForm.$invalid">保 存</button>
+            <div class="callout callout-success" ng-show="callout">
+                <p>课表保存成功!</p>
+            </div>
+        </div>
+        <!-- /.box-footer -->
+    </div>
+</form>
+</section>
+<!-- /.content -->

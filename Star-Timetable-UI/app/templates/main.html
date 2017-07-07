@@ -1,0 +1,12 @@
+<div class="wrapper" ng-controller="timetableCtrl">
+    <header class="main-header" ng-include="config.tplPath+'/header.html'"></header>
+
+    <aside class="main-sidebar" ng-include="config.tplPath+'/sidebar.html'"></aside>
+
+    <div class="content-wrapper">
+        <div  ng-include="config.tplPath+'/'+viewTemplate"></div>
+    </div>
+
+    <footer class="main-footer" ng-include="config.tplPath+'/footer.html'"></footer>
+    <div ng-include="config.tplPath+'/modal.html'"></div>
+</div>

@@ -1,0 +1,104 @@
+<link rel="stylesheet" href="dist/libs/timepicker/bootstrap-timepicker.min.css">
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        课表模板
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="javascript:;"><i class="fa fa-dashboard"></i>课表管理</a></li>
+        <li class="active">课表模板</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content" ng-controller="timetableTempCtrl">
+
+    <!-- Main row -->
+    <div class="row">
+        <div class="col-md-4">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">基础设置</h3>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group col-xs-5">
+                            <label>上午</label>
+                            <input type="text" class="form-control" placeholder="节课" ng-model="noonNums.forenoonNum"
+                                   maxlength="1"> <!--ng-keyup="numberFormat(noonNums,'forenoonNum')"-->
+                        </div>
+                        <div class="form-group col-xs-5">
+                            <label>下午</label>
+                            <input type="text" class="form-control" placeholder="节课" ng-model="noonNums.afternoonNum"
+                                   maxlength="1" ><!--ng-keyup="numberFormat(noonNums,'afternoonNum')"-->
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <div class="col-md-8">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">时间设置</h3>
+                </div>
+                <!-- /.box-header -->
+
+                <form name="tempForm">
+                    <div class="box-body no-padding">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th style="width: 10px">#</th>
+                                <th style="width: 50px">节数</th>
+                                <th>时间</th>
+                            </tr>
+                            <tr ng-repeat="item in timeTemp">
+                                <td rowspan="{{noonNums.forenoonNum}}" ng-if="noonNums.forenoonNum !=0  && $index == 0">
+                                    上午
+                                </td>
+                                <td rowspan="{{noonNums.afternoonNum}}" ng-if="$index == noonNums.forenoonNum">下午</td>
+                                <td>{{$index+1}}</td>
+                                <td>
+                                    <div class="bootstrap-timepicker col-md-3"><input type="text"
+                                                                                      class="form-control timepicker"
+                                                                                      timepicker ng-model="timeTemp[$index].startTime" required value="timeTemp[$index].startTime"></div>
+                                    <div class="bootstrap-timepicker  col-md-3"><input type="text"
+                                                                                       class="form-control timepicker"
+                                                                                       timepicker ng-model="timeTemp[$index].endTime" required value="timeTemp[$index].endTime"></div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <button ng-show="!callout" type="submit" class="btn btn-primary" ng-click="submitForm(tempForm.$valid)" ng-disabled="tempForm.$invalid || (timeTemp.length == 0)">保 存</button>
+                        <div class="callout callout-success" ng-show="callout">
+                            <h4>保存成功!</h4>
+                            <p>模板保存成功，请勿再次修改!</p>
+                        </div>
+                    </div>
+                    <!-- /.box-footer -->
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /.row (main row) -->
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="callout callout-warning">
+                <h4>模板编辑注意事项</h4>
+                <ol>
+                    <li>编辑基础设置，设置上下午各有几节课</li>
+                    <li>编辑各个课程时间</li>
+                    <li>时间为24小时制,上下午以12:00为界。</li>
+                </ol>
+                <p>注:模板保存完成,更改模板会使已录入课表失效.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /.content -->

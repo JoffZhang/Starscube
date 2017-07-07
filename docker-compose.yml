@@ -1,0 +1,25 @@
+version:"2"
+services:
+  star-eureka-server:
+    image: docker/star-eureka-server
+    ports:
+    - 1111:1111
+    hostname: localhost
+  star-basedata-service:
+    image: docker/star-basedata-service
+    ports:
+    - 2001:2001
+    links:
+    - star-eureka-server
+  star-timetable-service:
+    image: docker/star-timetable-service
+    prots:
+    - 2010:2010
+    links:
+    - star-eureka-server
+  star-timetable-ui:
+    image: docker/star-timetable-ui
+    prots:
+    - 8088:8088
+    links:
+    - star-eureka-server

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Star-BaseData-Service/Star-BaseData-Service.iml" filepath="$PROJECT_DIR$/Star-BaseData-Service/Star-BaseData-Service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Star-Basedata-Model/Star-Basedata-Model.iml" filepath="$PROJECT_DIR$/Star-Basedata-Model/Star-Basedata-Model.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Star-Eureka-Server/Star-Eureka-Server.iml" filepath="$PROJECT_DIR$/Star-Eureka-Server/Star-Eureka-Server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Star-Security/Star-Security.iml" filepath="$PROJECT_DIR$/Star-Security/Star-Security.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Star-Timetable-Model/Star-Timetable-Model.iml" filepath="$PROJECT_DIR$/Star-Timetable-Model/Star-Timetable-Model.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Star-Timetable-Service/Star-Timetable-Service.iml" filepath="$PROJECT_DIR$/Star-Timetable-Service/Star-Timetable-Service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Star-Timetable-UI/Star-Timetable-UI.iml" filepath="$PROJECT_DIR$/Star-Timetable-UI/Star-Timetable-UI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Starscube.iml" filepath="$PROJECT_DIR$/Starscube.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,177 @@
+<link rel="stylesheet" href="dist/libs/timepicker/daterangepicker.css">
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        课表列表
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="javascript:;"><i class="fa fa-dashboard"></i>课表管理</a></li>
+        <li>课表列表</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content" ng-controller="timetableListCtrl">
+    <div class="box box-default  color-palette-box">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-sm-4 col-md-2">
+                    <div class="form-group">
+                        <label>学段</label>
+                        <select required class="form-control" ng-model="currentSelects.stageId"
+                                ng-change="searchGrades(currentSelects.stageId);"
+                                ng-options="s.id as s.title for s in stages">
+                        </select>
+                    </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 col-md-2">
+                    <div class="form-group">
+                        <label>年级</label>
+                        <select class="form-control" ng-model="currentSelects.gradeId"
+                                ng-options="g.id as g.title for g in grades" ng-change="loadTimetableList();">
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="nav-tabs-custom">
+                            <ul class="nav nav-tabs">
+                                <li ng-class="tabsActive==1?'active':''"><a ng-click="tabsActive=1;loadTimetableList()" data-toggle="tab">进行中</a></li>
+                                <li ng-class="tabsActive==3?'active':''"><a ng-click="tabsActive=3;loadTimetableList()" data-toggle="tab">已结束</a></li>
+                                <li ng-class="tabsActive==2?'active':''"><a ng-click="tabsActive=2;loadTimetableList()" data-toggle="tab">未开始</a></li>
+                                <li class="pull-right"><button class="btn" ng-click="editTimetable()">添加课表</button></li>
+                            </ul>
+                            <div class="tab-content">
+                                <table id="example2" class="table table-bordered table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>课表标题</th>
+                                        <th>学段</th>
+                                        <th>年级</th>
+                                        <th>学期</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="item in dataList" ng-click="showView($index)">
+                                        <td>{{$index + 1 + listIndex}}</td>
+                                        <td>{{item.className}}课表</td>
+                                        <td>{{item.stageName}}</td>
+                                        <td>{{item.gradeName}}</td>
+                                        <td>{{item.startDate | date:'yyyy-MM-dd' }}~{{ item.endDate | date:'yyyy-MM-dd' }}</td>
+                                        <td>
+                                            <button class="btn" ng-click="editTimetable(item.id)">编辑</button>
+                                            <button class="btn" ng-click="delTimetable(item.id)">删除</button>
+                                        </td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                                            <my-pagination></my-pagination>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.tab-content -->
+                        </div>
+                        <!-- nav-tabs-custom -->
+                    </div>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+
+        </div>
+        <!-- /.box-body -->
+    </div>
+
+    <div class="modal" id="showView">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">预览 : {{viewShow.className}}课表</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>学段 : {{viewShow.stageName}}</label>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>年级 : {{viewShow.gradeName}}</label>
+                            </div>
+                        </div>
+
+                        <!-- /.col -->
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label>学期 : {{viewShow.startDate | date:'yyyy-MM-dd' }}~{{ viewShow.endDate |
+                                    date:'yyyy-MM-dd' }}</label>
+                                <!-- /.input group -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>#</th>
+                                <th>节数</th>
+                                <th>星期一</th>
+                                <th>星期二</th>
+                                <th>星期三</th>
+                                <th>星期四</th>
+                                <th>星期五</th>
+                            </tr>
+                            <tr ng-repeat="item in timeTemp">
+                                <td rowspan="{{noonNums.forenoonNum}}" ng-if="noonNums.forenoonNum !=0  && $index == 0">
+                                    上午
+                                </td>
+                                <td rowspan="{{noonNums.afternoonNum}}" ng-if="$index == noonNums.forenoonNum">下午</td>
+                                <td>
+                                    第{{$index+1}}节<br>
+                                    {{item.startTime}}~{{item.endTime}}
+                                </td>
+                                <td>
+                                    {{viewShow.datas[$index].mon}}
+                                </td>
+                                <td>
+                                    {{viewShow.datas[$index].tue}}
+                                </td>
+                                <td>
+                                    {{viewShow.datas[$index].wed}}
+                                </td>
+                                <td>
+                                    {{viewShow.datas[$index].thur}}
+                                </td>
+                                <td>
+                                    {{viewShow.datas[$index].fri}}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+</section>
+<!-- /.content -->
